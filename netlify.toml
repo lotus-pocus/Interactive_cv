@@ -4,6 +4,10 @@
   command = "npm run build"
   publish = "dist"
 
+# Vite 8 needs Node 20.19+ or 22.12+; the portfolio is developed on Node 22
+[build.environment]
+  NODE_VERSION = "22"
+
 # SPA fallback so /interactive-cv/3 and /cv load on refresh or deep link
 [[redirects]]
   from = "/*"

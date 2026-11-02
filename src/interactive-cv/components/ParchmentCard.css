@@ -1,0 +1,10 @@
+.icv .icv-card {
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: var(--icv-surface);
+  border: 2px solid var(--icv-border);
+  border-radius: var(--icv-radius);
+}
+
+.icv .icv-card > :last-child {
+  margin-bottom: 0;
+}

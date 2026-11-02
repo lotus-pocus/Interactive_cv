@@ -1,0 +1,36 @@
+.icv .icv-layout {
+  display: grid;
+  grid-template-areas:
+    "scene"
+    "content";
+  gap: 1.5rem;
+}
+
+.icv .icv-layout__scene {
+  grid-area: scene;
+}
+
+.icv .icv-layout__content {
+  grid-area: content;
+  min-width: 0;
+}
+
+/* Stand-in until Phase 4 adds the SVG scenes */
+.icv .icv-layout__placeholder {
+  aspect-ratio: 16 / 9;
+  border: 2px dashed var(--icv-border);
+  border-radius: var(--icv-radius);
+}
+
+@media (min-width: 52rem) {
+  .icv .icv-layout {
+    grid-template-areas: "content scene";
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .icv .icv-layout__placeholder {
+    aspect-ratio: 1;
+  }
+}

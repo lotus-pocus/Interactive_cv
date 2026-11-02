@@ -1,0 +1,32 @@
+.icv .icv-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+
+  padding: 0.75rem var(--icv-gutter);
+  background: var(--icv-bg);
+  border-bottom: 1px solid var(--icv-border);
+}
+
+.icv .icv-header__portfolio {
+  font-weight: 600;
+}
+
+.icv .icv-header__cv {
+  margin-left: auto;
+}
+
+/* On narrow screens the progress line drops to its own row so
+   Back to portfolio and View CV stay side by side */
+@media (max-width: 36rem) {
+  .icv .icv-header .icv-progress {
+    order: 3;
+    flex-basis: 100%;
+  }
+}

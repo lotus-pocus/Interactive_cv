@@ -8,3 +8,13 @@ It's developed standalone and tested on Netlify, then merged into
 - Plan and integration steps: `docs/IMPLEMENTATION_PLAN.md`
 - Facts to confirm: `docs/CONTENT_CHECKLIST.md`
 - Instructions for Claude Code: `CLAUDE.md`
+
+## Run it locally
+Needs Node 22.
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run lint
+npm run build && npm run preview   # production build at http://localhost:4173
+```

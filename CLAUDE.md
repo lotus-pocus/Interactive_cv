@@ -28,9 +28,38 @@ Everything that will move to the portfolio lives in **`src/interactive-cv/`**. E
 - CSS is scoped: CSS Modules, or plain CSS where every selector sits under a `.icv` root class.
   Custom properties are prefixed `--icv-`. No global resets, no styling of `body`/`html`/bare tags.
 - Assets (SVGs, avatar) live inside the module folder or are imported by it, so they move with it.
-- Match the portfolio's stack. Known so far: **Vite + React (JSX, not TS), React Router
-  (`BrowserRouter` in `App.jsx`), plain `.css` file per component, ESLint flat config.**
-  Phase 0 confirms the exact versions from its `package.json`.
+- Match the portfolio's stack: **Vite 8.0.13, React 19.2.6 (JSX, not TS), react-router-dom 7.17.0
+  (`BrowserRouter` in `App.jsx`), plain `.css` file per component, ESLint 10 flat config, no test
+  runner.** Runtime and build versions are pinned exactly in `package.json` to what the portfolio
+  has installed, so don't bump them, and don't use APIs newer than those versions.
+- Module layout: `src/interactive-cv/index.js` exports `InteractiveCV` and `CVPage`. Config defaults
+  and `useConfig` live in `config.js`. All story copy is in `data/chapters.js`. Shared styles and
+  `--icv-*` tokens are in `styles/icv.css`. Throwaway shell code lives in `src/shell/` and `src/App.jsx`.
+
+## The portfolio's global CSS leaks into the module
+The portfolio's `src/index.css` sets a `*` margin/padding reset, `a { color: inherit; text-decoration: none }`,
+a near-black `body` (`#050505`) with white text, Geist font, and tight headings (weight 800,
+line-height 0.98, letter-spacing -0.045em). The module must not rely on browser defaults: under
+`.icv` it sets its own background, colour, font, heading metrics, paragraph/list spacing and link
+underlines. Use `.icv .icv-x` selectors (two classes), because `.icv a` (0,1,1) beats a single
+class. `src/shell/shell.css` is a verbatim copy of the portfolio's `index.css` so the test site
+shows the same leaks. Keep it in sync if the portfolio's changes.
+
+## Decisions (agreed with Lotus, November 2026)
+- **Chrome at merge:** `/interactive-cv/*` renders **without** the portfolio Nav, AnnouncementBanner
+  and SearchBox (Footer and CookieConsent stay). `/cv` keeps the normal portfolio chrome, including
+  the Nav pinned at `top: 5rem; right: 2rem`, so `CVPage` has top padding to clear it
+  (`--icv-cv-top`: 12rem narrow, 8rem at ≥70rem like the portfolio's PrivacyPage). The test shell
+  mirrors both.
+- **PDF:** reuse the existing portfolio PDF; never copy it into this repo. `pdfUrl` is
+  `https://lotus-pocus-portfolio.vercel.app/Lotus_Tay_CV.pdf` on Netlify and `/Lotus_Tay_CV.pdf`
+  (the module default) after the merge. That file is the **source of truth for CV facts**.
+- **Contact:** the portfolio's existing `mailto:lotusetay@gmail.com`, passed in as `contactUrl`.
+- **Open issue:** the portfolio Nav is white text with `mix-blend-mode: difference`, but `.site-nav`
+  has `z-index` so it's its own stacking context, and the blend never reaches the page. It only
+  reads on dark backgrounds. On a light `/cv` it's near-invisible. Needs a decision before Phase 2.
+- **Integration needs no `vercel.json` change.** The portfolio already rewrites `/((?!.*\.).*)` to
+  `/index.html`.
 
 ## The portfolio is READ-ONLY
 The portfolio lives at `../lotus-pocus-portfolio` (the live site, deployed by Vercel from `main`).
@@ -50,8 +79,11 @@ Read it for reference only. Never edit, install, commit or run git commands in i
 - Layout: illustration beside the card on desktop, stacked above it on mobile. No horizontal scroll at 320px.
 
 ## Commands
-(Fill in once scaffolded, e.g.)
-- `npm run dev`, `npm run build`, `npm run preview`, `npm run lint`
+- `npm run dev`: dev server at http://localhost:5173
+- `npm run build`: production build to `dist/`
+- `npm run preview`: serve the production build at http://localhost:4173
+- `npm run lint`: ESLint (no test runner, same as the portfolio)
+- Node 22 (pinned for Netlify in `netlify.toml`)
 
 ## Deployment
 - Netlify builds from `main` using `netlify.toml`. Branches get deploy previews.

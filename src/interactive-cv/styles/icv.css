@@ -1,0 +1,151 @@
+/* Module root. Every selector sits under .icv so nothing leaks out.
+   The portfolio's global CSS removes all margins and padding, strips link
+   underlines, sets a near-black body with white text and squeezes headings
+   (line-height 0.98, letter-spacing -0.045em), so the rules below put back
+   what the module relies on. Phase 4 replaces these neutral tokens with the
+   pastel/parchment palette. */
+.icv {
+  --icv-font: "Geist", Arial, sans-serif;
+  --icv-bg: #fbf7f0;
+  --icv-surface: #fffdf8;
+  --icv-text: #2b2420;
+  --icv-text-muted: #5f5148;
+  --icv-border: #d9cbb8;
+  --icv-primary: #2f5d50;
+  --icv-primary-hover: #244a40;
+  --icv-primary-tint: rgba(47, 93, 80, 0.08);
+  --icv-on-primary: #ffffff;
+  --icv-focus: #7a3fd1;
+  --icv-radius: 0.5rem;
+  --icv-gutter: clamp(1rem, 4vw, 2rem);
+  --icv-duration: 200ms;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--icv-bg);
+  color: var(--icv-text);
+  font-family: var(--icv-font);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.icv h1,
+.icv h2,
+.icv h3 {
+  margin: 0 0 0.75rem;
+  color: inherit;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.icv h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.icv p,
+.icv ul,
+.icv ol {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.icv ul,
+.icv ol {
+  padding-left: 1.5rem;
+}
+
+.icv a {
+  color: var(--icv-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.icv a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.icv :focus-visible {
+  outline: 3px solid var(--icv-focus);
+  outline-offset: 3px;
+}
+
+/* Headings receive focus programmatically on navigation; no ring needed there */
+.icv [tabindex="-1"]:focus {
+  outline: none;
+}
+
+.icv .icv-main {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--icv-gutter) 3rem;
+}
+
+/* Buttons: used on <a>, <Link> and <button> */
+.icv .icv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.6rem 1.1rem;
+  border: 2px solid var(--icv-primary);
+  border-radius: var(--icv-radius);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--icv-duration) ease,
+    border-color var(--icv-duration) ease;
+}
+
+.icv .icv-button--primary {
+  background: var(--icv-primary);
+  color: var(--icv-on-primary);
+}
+
+.icv .icv-button--primary:hover {
+  background: var(--icv-primary-hover);
+  border-color: var(--icv-primary-hover);
+}
+
+.icv .icv-button--secondary {
+  background: transparent;
+  color: var(--icv-primary);
+}
+
+.icv .icv-button--secondary:hover {
+  background: var(--icv-primary-tint);
+}
+
+.icv .icv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.icv .icv-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icv *,
+  .icv *::before,
+  .icv *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

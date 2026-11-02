@@ -1,5 +1,8 @@
 {
   "permissions": {
+    "additionalDirectories": [
+      "C:/Users/lotus/personal/lotus-portfolio/lotus-pocus-portfolio"
+    ],
     "deny": [
       "Edit(~/personal/lotus-portfolio/lotus-pocus-portfolio/**)",
       "Write(~/personal/lotus-portfolio/lotus-pocus-portfolio/**)",

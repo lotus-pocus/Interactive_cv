@@ -1,0 +1,17 @@
+/* /cv keeps the portfolio Nav, which is pinned at top: 5rem; right: 2rem.
+   The top padding clears it. Hosts can tune it with --icv-cv-top. */
+.icv.icv-cv {
+  padding: var(--icv-cv-top, 12rem) var(--icv-gutter) 4rem;
+}
+
+.icv .icv-cv__main {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+/* Same 8rem as the portfolio's PrivacyPage once the Nav sits beside the content */
+@media (min-width: 70rem) {
+  .icv.icv-cv {
+    padding-top: var(--icv-cv-top, 8rem);
+  }
+}

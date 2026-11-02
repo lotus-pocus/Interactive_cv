@@ -1,0 +1,62 @@
+/* Test shell only. A verbatim copy of the portfolio's src/index.css, so the
+   module is tested against the same global resets it will meet after the merge. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+html {
+  font-family: "Geist", Arial, sans-serif;
+}
+
+body {
+  font-family: "Geist", Arial, sans-serif;
+  background: #050505;
+  color: white;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Geist", Arial, sans-serif;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+p {
+  line-height: 1.65;
+}

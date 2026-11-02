@@ -1,0 +1,12 @@
+/* Based on the portfolio's components/Footer/Footer.css */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: 2rem;
+
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
