@@ -1,0 +1,13 @@
+.icv .icv-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Stacked above the card on mobile: keep the scene from pushing the story
+   below the fold. The viewBox keeps it centred and in proportion. */
+@media (max-width: 51.99rem) {
+  .icv .icv-scene {
+    max-height: 15rem;
+  }
+}

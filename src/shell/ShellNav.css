@@ -23,3 +23,10 @@
 .site-nav a:hover {
   opacity: 0.65;
 }
+
+/* Not in the portfolio yet: add this to its Nav.css at the merge */
+@media print {
+  .site-nav {
+    display: none;
+  }
+}

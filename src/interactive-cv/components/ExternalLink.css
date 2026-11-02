@@ -1,0 +1,15 @@
+.icv .icv-external {
+  overflow-wrap: anywhere;
+}
+
+.icv .icv-external__icon {
+  display: inline-block;
+  margin-left: 0.2em;
+  text-decoration: none;
+}
+
+@media print {
+  .icv .icv-external__icon {
+    display: none;
+  }
+}

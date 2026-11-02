@@ -1,7 +1,20 @@
-/* /cv keeps the portfolio Nav, which is pinned at top: 5rem; right: 2rem.
-   The top padding clears it. Hosts can tune it with --icv-cv-top. */
+/* /cv is dark to match the portfolio's sub-pages (e.g. PrivacyPage), so the
+   portfolio's white Nav stays readable. It keeps the portfolio Nav, which is
+   pinned at top: 5rem; right: 2rem. The top padding clears it; hosts can tune
+   it with --icv-cv-top. */
 .icv.icv-cv {
-  padding: var(--icv-cv-top, 12rem) var(--icv-gutter) 4rem;
+  --icv-bg: #050505;
+  --icv-surface: #111111;
+  --icv-text: #f5f5f5;
+  --icv-text-muted: #b5b5b5;
+  --icv-border: rgba(255, 255, 255, 0.15);
+  --icv-primary: #f5f5f5;
+  --icv-primary-hover: #ffffff;
+  --icv-primary-tint: rgba(255, 255, 255, 0.1);
+  --icv-on-primary: #050505;
+  --icv-focus: #c9a7ff;
+
+  padding: var(--icv-cv-top, 12rem) var(--icv-gutter) 6rem;
 }
 
 .icv .icv-cv__main {
@@ -9,9 +22,154 @@
   margin-inline: auto;
 }
 
+.icv .icv-cv__kicker {
+  margin-bottom: 1rem;
+  color: var(--icv-text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.icv .icv-cv h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.icv .icv-cv__headline {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.icv .icv-cv__contact {
+  font-style: normal;
+}
+
+.icv .icv-cv__contact ul {
+  padding: 0;
+  list-style: none;
+}
+
+.icv .icv-cv__contact li {
+  margin-bottom: 0.25rem;
+}
+
+.icv .icv-cv__actions {
+  margin-bottom: 2rem;
+}
+
+.icv .icv-cv__section {
+  padding: 2rem 0;
+  border-top: 1px solid var(--icv-border);
+}
+
+.icv .icv-cv h2 {
+  margin-bottom: 1.25rem;
+  font-size: 1.3rem;
+}
+
+.icv .icv-cv h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.icv .icv-cv__section > :last-child,
+.icv .icv-cv__entry > :last-child {
+  margin-bottom: 0;
+}
+
+.icv .icv-cv__entry + .icv-cv__entry {
+  margin-top: 1.75rem;
+}
+
+.icv .icv-cv__subheading {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.icv .icv-cv__dates,
+.icv .icv-cv__stack {
+  margin-bottom: 0.75rem;
+  color: var(--icv-text-muted);
+}
+
+.icv .icv-cv__skills {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .icv .icv-cv__skills {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.icv .icv-cv__links {
+  padding: 0;
+  list-style: none;
+}
+
+.icv .icv-cv__note {
+  color: var(--icv-text-muted);
+}
+
+.icv .icv-cv__back {
+  padding-top: 2rem;
+  border-top: 1px solid var(--icv-border);
+}
+
 /* Same 8rem as the portfolio's PrivacyPage once the Nav sits beside the content */
 @media (min-width: 70rem) {
   .icv.icv-cv {
     padding-top: var(--icv-cv-top, 8rem);
+  }
+}
+
+/* Print: black on white, content only. The host hides its own Nav and Footer
+   (the module can't reach them without styling outside .icv). */
+@media print {
+  .icv.icv-cv {
+    --icv-bg: #ffffff;
+    --icv-text: #000000;
+    --icv-text-muted: #333333;
+    --icv-border: #999999;
+    --icv-primary: #000000;
+
+    min-height: 0;
+    padding: 0;
+    font-size: 11pt;
+  }
+
+  .icv .icv-cv__main {
+    max-width: none;
+  }
+
+  .icv .icv-cv__kicker,
+  .icv .icv-cv__actions,
+  .icv .icv-cv__back {
+    display: none;
+  }
+
+  .icv .icv-cv h1 {
+    font-size: 24pt;
+  }
+
+  .icv .icv-cv__section {
+    padding: 1rem 0;
+  }
+
+  /* Entries may split across pages (keeping them whole leaves headings
+     orphaned), but headings stay with what follows and bullets stay whole. */
+  .icv .icv-cv h2,
+  .icv .icv-cv h3,
+  .icv .icv-cv__subheading,
+  .icv .icv-cv__dates,
+  .icv .icv-cv__stack {
+    break-after: avoid;
+  }
+
+  .icv .icv-cv li {
+    break-inside: avoid;
   }
 }

@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { useConfig } from "../config";
 import { chapters } from "../data/chapters";
 import ChapterLayout from "../components/ChapterLayout";
+import { scenes } from "../scenes";
 import "./Chapter.css";
 
 export default function Chapter() {
@@ -18,9 +19,10 @@ export default function Chapter() {
   const isLast = index === chapters.length - 1;
   const backTo = index === 0 ? basePath : `${basePath}/${chapters[index - 1].number}`;
   const nextTo = isLast ? `${basePath}/thanks` : `${basePath}/${chapters[index + 1].number}`;
+  const Scene = scenes[chapter.number];
 
   return (
-    <ChapterLayout>
+    <ChapterLayout scene={Scene && <Scene />}>
       <h1 tabIndex={-1}>{chapter.title}</h1>
 
       {chapter.paragraphs.map((paragraph) => (

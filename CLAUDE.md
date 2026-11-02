@@ -55,9 +55,19 @@ shows the same leaks. Keep it in sync if the portfolio's changes.
   `https://lotus-pocus-portfolio.vercel.app/Lotus_Tay_CV.pdf` on Netlify and `/Lotus_Tay_CV.pdf`
   (the module default) after the merge. That file is the **source of truth for CV facts**.
 - **Contact:** the portfolio's existing `mailto:lotusetay@gmail.com`, passed in as `contactUrl`.
-- **Open issue:** the portfolio Nav is white text with `mix-blend-mode: difference`, but `.site-nav`
-  has `z-index` so it's its own stacking context, and the blend never reaches the page. It only
-  reads on dark backgrounds. On a light `/cv` it's near-invisible. Needs a decision before Phase 2.
+- **`/cv` is dark** (`#050505`, like the portfolio's PrivacyPage), set by overriding the `--icv-*`
+  tokens on `.icv.icv-cv`. Reason: the portfolio Nav is white text with `mix-blend-mode: difference`,
+  but `.site-nav` has a `z-index`, so it's its own stacking context and the blend never reaches the
+  page. It only reads on dark backgrounds. Keep any page that shows the portfolio Nav dark.
+- **Print:** `/cv` prints black on white with no buttons or back link (module CSS). The module can't
+  hide the host's Nav and Footer without styling outside `.icv`, so the host does it: the shell's
+  `ShellNav.css` and `ShellFooter.css` have `@media print { display: none }`, and the same two
+  rules must be added to the portfolio's `Nav.css` and `Footer.css` at the merge.
+- **CV content** lives in `data/cv.js`, transcribed word for word from the live PDF, including its
+  link targets. The mobile number is deliberately left out of the HTML.
+- **Favicon:** the portfolio has none (`/favicon.ico` is a 404 on the live site), so the shell has
+  none either. Don't use the Sanity Studio's icons.
+- **Footer** stays on every route, including `/interactive-cv`.
 - **Integration needs no `vercel.json` change.** The portfolio already rewrites `/((?!.*\.).*)` to
   `/index.html`.
 

@@ -16,6 +16,43 @@
   --icv-primary-tint: rgba(47, 93, 80, 0.08);
   --icv-on-primary: #ffffff;
   --icv-focus: #7a3fd1;
+  /* Text accent: deep neon pink, 6.2:1 on --icv-bg (AA). The only accent safe for text. */
+  --icv-accent-text: #b0126a;
+
+  /* Illustration palette (see docs/ILLUSTRATION_STYLE.md). Fills only, never
+     text. Each hue has three tones for the three visible faces of an
+     isometric shape: -1 top (lit), -2 left (mid), -3 right (shade). */
+  --icv-ill-pink-1: #ffd6e5;
+  --icv-ill-pink-2: #f7b3cc;
+  --icv-ill-pink-3: #e48aaf;
+  --icv-ill-peach-1: #ffe3cc;
+  --icv-ill-peach-2: #fbc9a3;
+  --icv-ill-peach-3: #eaa77a;
+  --icv-ill-lemon-1: #fff4c2;
+  --icv-ill-lemon-2: #fbe596;
+  --icv-ill-lemon-3: #ecd06a;
+  --icv-ill-mint-1: #d4f3e6;
+  --icv-ill-mint-2: #a9e3cb;
+  --icv-ill-mint-3: #7fcbac;
+  --icv-ill-sky-1: #d6ebff;
+  --icv-ill-sky-2: #b0d4f5;
+  --icv-ill-sky-3: #86b6e3;
+  --icv-ill-lilac-1: #e9defc;
+  --icv-ill-lilac-2: #d2c0f5;
+  --icv-ill-lilac-3: #b49be6;
+  --icv-ill-cream-1: #fffaf0;
+  --icv-ill-cream-2: #f3e9d8;
+  --icv-ill-cream-3: #e2d3bb;
+  --icv-ill-wood-1: #f0dcc4;
+  --icv-ill-wood-2: #ddbf9c;
+  --icv-ill-wood-3: #c29f78;
+  --icv-ill-ground-1: #efe6f5;
+  --icv-ill-ground-2: #ddd0ea;
+  --icv-ill-ground-3: #c8b8dc;
+  /* Neon accents: at most two small touches per scene */
+  --icv-ill-neon-pink: #ff3d9a;
+  --icv-ill-neon-cyan: #1fe0ff;
+
   --icv-radius: 0.5rem;
   --icv-gutter: clamp(1rem, 4vw, 2rem);
   --icv-duration: 200ms;

@@ -1,0 +1,15 @@
+.icv .icv-inline-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style: none;
+}
+
+/* Separator is decorative: the alt text after "/" keeps screen readers quiet.
+   It trails each item so a wrapped line never starts with "|". */
+.icv .icv-inline-list li:not(:last-child)::after {
+  content: "|";
+  content: "|" / "";
+  margin-inline: 0.5em;
+  color: var(--icv-text-muted);
+}

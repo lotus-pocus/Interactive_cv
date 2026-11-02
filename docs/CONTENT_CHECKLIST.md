@@ -31,8 +31,8 @@ confirmed copy into `src/interactive-cv/data/`.
       The portfolio says *16-week Skills for Life bootcamp* in 2023. Pick one wording, and say whether
       to show the date. Suggest it goes in Chapter 4 as "Skilled up".
 - [ ] **Phone number on `/cv`.** The PDF, with your mobile number, is already public at the URL above
-      and will be the Download PDF target. Should the HTML version on `/cv` show the number too, or
-      email only?
+      and is the Download PDF target. The HTML version on `/cv` currently shows **email only**.
+      Confirm, or ask for the number to be added.
 - [ ] **"Grown On Trees" or "Grown on Trees"?** The CV and the portfolio's button use lower-case
       "on"; the brief uses "On". Pick one.
 

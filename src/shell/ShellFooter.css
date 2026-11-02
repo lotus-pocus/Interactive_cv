@@ -10,3 +10,10 @@
   font-size: 0.8rem;
   opacity: 0.65;
 }
+
+/* Not in the portfolio yet: add this to its Footer.css at the merge */
+@media print {
+  .site-footer {
+    display: none;
+  }
+}

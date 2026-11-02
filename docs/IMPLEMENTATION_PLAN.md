@@ -120,6 +120,8 @@ Claude Code reads the portfolio and fills in this table, then waits for approval
    outside the Nav, AnnouncementBanner and SearchBox, and `/cv` stays inside them (see `src/App.jsx`
    in this repo for the shape).
 4. No SPA fallback change needed. `vercel.json` already rewrites extensionless paths to `/index.html`.
+   Add `@media print { .site-nav { display: none; } }` to `Nav.css` and the same for `.site-footer`
+   in `Footer.css`, so `/cv` prints without them. Check whether CookieConsent needs the same.
 5. Add an entry point from the portfolio: a nav link or hero button saying "My story (interactive CV)".
 6. Push the branch, and Vercel gives you a **preview URL** automatically. Test there, then merge.
 7. Archive or keep the standalone repo. Turn off the Netlify site, or leave it as `noindex`.
