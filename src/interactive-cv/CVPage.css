@@ -1,19 +1,8 @@
-/* /cv is dark to match the portfolio's sub-pages (e.g. PrivacyPage), so the
+/* /cv uses the module's dark tokens (like the portfolio's PrivacyPage), so the
    portfolio's white Nav stays readable. It keeps the portfolio Nav, which is
    pinned at top: 5rem; right: 2rem. The top padding clears it; hosts can tune
    it with --icv-cv-top. */
 .icv.icv-cv {
-  --icv-bg: #050505;
-  --icv-surface: #111111;
-  --icv-text: #f5f5f5;
-  --icv-text-muted: #b5b5b5;
-  --icv-border: rgba(255, 255, 255, 0.15);
-  --icv-primary: #f5f5f5;
-  --icv-primary-hover: #ffffff;
-  --icv-primary-tint: rgba(255, 255, 255, 0.1);
-  --icv-on-primary: #050505;
-  --icv-focus: #c9a7ff;
-
   padding: var(--icv-cv-top, 12rem) var(--icv-gutter) 6rem;
 }
 

@@ -68,6 +68,18 @@ shows the same leaks. Keep it in sync if the portfolio's changes.
 - **Favicon:** the portfolio has none (`/favicon.ico` is a 404 on the live site), so the shell has
   none either. Don't use the Sanity Studio's icons.
 - **Footer** stays on every route, including `/interactive-cv`.
+- **Story screens are dark too** (intro, chapters, thanks): the base `--icv-*` tokens in
+  `styles/icv.css` are the dark set, shared with `/cv`.
+- **ParchmentCard** recreates the Grown on Trees pinned-parchment result card
+  (`.got-parchment--pinned`, applied to FlagRound's result card). Its source is only in the GOT
+  review copies (e.g. `grown-on-trees/.commit7-review-20261030/isolated-revision-3/src/index.css`),
+  not GOT's main `src/`. GOT is read-only; never import from it. The card sets its own ink tokens
+  for the paper; all its text passes AA.
+- **Card font:** M PLUS Rounded 1c, self-hosted in `fonts/` (Latin subset, weights 500/700/900,
+  ~66 KB total, SIL OFL in `fonts/OFL.txt`) under the module-only family name
+  `"ICV M PLUS Rounded 1c"`. Never add a Google Fonts `@import` to module CSS: it lands mid-bundle
+  after the merge and browsers ignore it. Pixelify Sans isn't used.
+- Illustration rules and palette: `docs/ILLUSTRATION_STYLE.md`.
 - **Integration needs no `vercel.json` change.** The portfolio already rewrites `/((?!.*\.).*)` to
   `/index.html`.
 

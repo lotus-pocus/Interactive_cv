@@ -1,6 +1,7 @@
+import "../styles/fonts.css";
 import "./ParchmentCard.css";
 
-// Narrative card. Plain for now; Phase 4 adds the parchment treatment.
+// Narrative card in the Grown on Trees pinned-parchment style.
 export default function ParchmentCard({ children }) {
   return <div className="icv-card">{children}</div>;
 }

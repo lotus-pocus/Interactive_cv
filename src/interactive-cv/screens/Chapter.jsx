@@ -4,7 +4,6 @@ import { useConfig } from "../config";
 import { chapters } from "../data/chapters";
 import ChapterLayout from "../components/ChapterLayout";
 import { scenes } from "../scenes";
-import "./Chapter.css";
 
 export default function Chapter() {
   const { basePath } = useConfig();
@@ -29,9 +28,12 @@ export default function Chapter() {
         <p key={paragraph}>{paragraph}</p>
       ))}
 
-      <p className="icv-chapter__skills">
-        <strong>Skills gained:</strong> {chapter.skills}
-      </p>
+      <section className="icv-card__reveal" aria-labelledby="icv-skills">
+        <h2 className="icv-card__eyebrow" id="icv-skills">
+          Skills gained
+        </h2>
+        <p>{chapter.skills}</p>
+      </section>
 
       <nav className="icv-actions" aria-label="Chapter navigation">
         <Link className="icv-button icv-button--secondary" to={backTo}>

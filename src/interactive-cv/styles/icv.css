@@ -2,22 +2,23 @@
    The portfolio's global CSS removes all margins and padding, strips link
    underlines, sets a near-black body with white text and squeezes headings
    (line-height 0.98, letter-spacing -0.045em), so the rules below put back
-   what the module relies on. Phase 4 replaces these neutral tokens with the
-   pastel/parchment palette. */
+   what the module relies on. Every screen is dark (the portfolio's #050505);
+   narrative content sits on the parchment card, which sets its own tokens. */
 .icv {
   --icv-font: "Geist", Arial, sans-serif;
-  --icv-bg: #fbf7f0;
-  --icv-surface: #fffdf8;
-  --icv-text: #2b2420;
-  --icv-text-muted: #5f5148;
-  --icv-border: #d9cbb8;
-  --icv-primary: #2f5d50;
-  --icv-primary-hover: #244a40;
-  --icv-primary-tint: rgba(47, 93, 80, 0.08);
-  --icv-on-primary: #ffffff;
-  --icv-focus: #7a3fd1;
-  /* Text accent: deep neon pink, 6.2:1 on --icv-bg (AA). The only accent safe for text. */
-  --icv-accent-text: #b0126a;
+  --icv-font-card: "ICV M PLUS Rounded 1c", "Geist", Arial, sans-serif;
+  --icv-bg: #050505;
+  --icv-surface: #111111;
+  --icv-text: #f5f5f5;
+  --icv-text-muted: #b5b5b5;
+  --icv-border: rgba(255, 255, 255, 0.15);
+  --icv-primary: #f5f5f5;
+  --icv-primary-hover: #ffffff;
+  --icv-primary-tint: rgba(255, 255, 255, 0.1);
+  --icv-on-primary: #050505;
+  --icv-focus: #c9a7ff;
+  /* Text accent: soft neon pink, 8.5:1 on --icv-bg (AA). The only accent safe for text. */
+  --icv-accent-text: #ff7ab8;
 
   /* Illustration palette (see docs/ILLUSTRATION_STYLE.md). Fills only, never
      text. Each hue has three tones for the three visible faces of an
@@ -40,16 +41,18 @@
   --icv-ill-lilac-1: #e9defc;
   --icv-ill-lilac-2: #d2c0f5;
   --icv-ill-lilac-3: #b49be6;
-  --icv-ill-cream-1: #fffaf0;
-  --icv-ill-cream-2: #f3e9d8;
-  --icv-ill-cream-3: #e2d3bb;
+  /* Warm, not white: pure white glares on the black page */
+  --icv-ill-cream-1: #f7ecd9;
+  --icv-ill-cream-2: #e8d8bf;
+  --icv-ill-cream-3: #d4c0a2;
   --icv-ill-wood-1: #f0dcc4;
   --icv-ill-wood-2: #ddbf9c;
   --icv-ill-wood-3: #c29f78;
-  --icv-ill-ground-1: #efe6f5;
-  --icv-ill-ground-2: #ddd0ea;
-  --icv-ill-ground-3: #c8b8dc;
-  /* Neon accents: at most two small touches per scene */
+  /* Deep indigo slab: reads as a floor on black without glaring */
+  --icv-ill-ground-1: #2c2640;
+  --icv-ill-ground-2: #221d33;
+  --icv-ill-ground-3: #181426;
+  /* Neon accents: at most two small touches per scene, with a glow */
   --icv-ill-neon-pink: #ff3d9a;
   --icv-ill-neon-cyan: #1fe0ff;
 

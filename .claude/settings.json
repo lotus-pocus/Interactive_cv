@@ -1,11 +1,14 @@
 {
   "permissions": {
     "additionalDirectories": [
-      "C:/Users/lotus/personal/lotus-portfolio/lotus-pocus-portfolio"
+      "C:/Users/lotus/personal/lotus-portfolio/lotus-pocus-portfolio",
+      "C:/Users/lotus/personal/grown-on-trees"
     ],
     "deny": [
       "Edit(~/personal/lotus-portfolio/lotus-pocus-portfolio/**)",
       "Write(~/personal/lotus-portfolio/lotus-pocus-portfolio/**)",
+      "Edit(~/personal/grown-on-trees/**)",
+      "Write(~/personal/grown-on-trees/**)",
       "Bash(git push:*)"
     ]
   }

@@ -1,0 +1,27 @@
+/* M PLUS Rounded 1c (SIL OFL, see ../fonts/OFL.txt), self-hosted so the module
+   never adds a Google Fonts @import to the portfolio's CSS bundle. Latin subset only,
+   three weights. The family name is module-specific so it can't collide with
+   any host font. Browsers only download a weight when text actually uses it. */
+@font-face {
+  font-family: "ICV M PLUS Rounded 1c";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/mplus-rounded-1c-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ICV M PLUS Rounded 1c";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/mplus-rounded-1c-latin-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ICV M PLUS Rounded 1c";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../fonts/mplus-rounded-1c-latin-900.woff2") format("woff2");
+}
