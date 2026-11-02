@@ -56,6 +56,10 @@
   --icv-ill-leaf-1: #c8f0b4;
   --icv-ill-leaf-2: #9edc86;
   --icv-ill-leaf-3: #74c063;
+  /* Flags only, softened towards the palette (whites use cream-1, light blues sky) */
+  --icv-ill-flag-navy: #3e4f99;
+  --icv-ill-flag-royal: #4b68c2;
+  --icv-ill-flag-red: #e05a6d;
   /* Muted dusk for walls and large panels: reads on black without glaring */
   --icv-ill-dusk-1: #5a4f7a;
   --icv-ill-dusk-2: #463d63;

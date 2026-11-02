@@ -30,10 +30,17 @@ parchment card. Pastel objects on a deep indigo floor, with small glowing neon t
 - **One filter only: `<NeonGlow>`** (`scenes/NeonGlow.jsx`), applied to neon accents and nothing
   else. `<IsoScene>` places it; apply the `glow` it passes you with `filter={glow}`.
 - **Max ~12 shapes per scene.** A shape is one object: a box, a post, an awning, a wall. The floor
-  and each neon accent count. A box is three polygons but counts as one shape. Agreed exception:
-  Chapter 2 (stall + boutique) uses 16; keep any scene over 12 uncluttered.
+  and each neon accent count. A box is three polygons but counts as one shape. Agreed exceptions:
+  Chapter 1 (islands + flags) uses 15, Chapter 2 (stall + boutique) 16. Keep any scene over 12
+  uncluttered.
 - Prefer boxes (`<IsoBox>`), pyramids (`<IsoPyramid>`), striped awnings (`<StripedAwning>`) and
-  flat panels drawn with `face()`. Keep curves and round shapes rare (the map pin is the exception).
+  flat panels drawn with `face()`.
+- **Small rounded objects are drawn flat, front-on** (screen space) at an `isoPoint()`, not as iso
+  boxes: the plane, the Ch4 display head and visor, the Ch5 seedlings. Round shapes stay rare and
+  small. Clip details to a rounded shape with a `<clipPath>` (the head's straps) rather than
+  approximating curves with boxes.
+- **Something that passes through a ring** (the CN Tower shaft through its pod) is drawn in parts:
+  the part below, then the ring, then the part above, so the ring's top face doesn't hide it.
 - **Flat details on a face** (shop windows, posters, a screen, key rows) are polygons in that
   face's plane, nudged 0.02 units out so they sit on top. Posters can tilt slightly, like a
   pinned clipping, by skewing their height along the wall.
@@ -79,6 +86,18 @@ less so the black page doesn't flare around them.
 | `neon-pink` | #ff3d9a | **Accents only: at most two small touches per scene** (a strip, a tag, a light), always with `<NeonGlow>`. Never a whole face. |
 | `neon-cyan` | #1fe0ff | Same. |
 
+## Flags
+`scenes/Flag.jsx` draws a small, static flag on a thin cream pole, hanging in the plane that faces
+the viewer's left (flying along +x). Flags are simplified to read at about 15px wide:
+- **Union Jack:** navy field, chunky white saltire, white cross, red cross (no thin red saltire).
+- **Canada:** red / white / red with a simple stylised maple leaf.
+- **Sabah (Borneo):** light blue / white / red bands with a royal blue panel at the hoist and a
+  light Mount Kinabalu silhouette.
+
+Flag colours are softened towards the palette: whites use `cream-1` and light blues use `sky`,
+plus three flag-only tokens: `flag-navy` #3e4f99, `flag-royal` #4b68c2, `flag-red` #e05a6d.
+Put a flag on a free corner of its island, away from landmarks and other islands' flags.
+
 **Contrast:** pastels and neons are for fills, never text. Text uses the `--icv-text*` tokens.
 On the dark page the only accent colour safe for text is `--icv-accent-text` (#ff7ab8,
 8.5:1 on #050505, AA). The parchment card has its own ink tokens (see `ParchmentCard.css`).
@@ -94,7 +113,7 @@ and thanks screens (`variant="thanks"` adds four sparkles, one of them neon cyan
   frames with a `lilac-1` top edge for the light, a faint `lilac-1` tint in the lenses, a slim
   bridge, and `lilac-3` temples running back to the ears. Never dark frames.
 - Avatar-only tokens: `skin-1/2/3` (#e2b48c, #cf9a70, #b07b55), `hair` (#141118), `ink` (#2a2129,
-  eyes and the map-pin hole), `jacket-1/2` (#4a4058, #3a3247).
+  eyes), `jacket-1/2` (#4a4058, #3a3247).
 - **Rim light:** black hair would vanish on the black page, so the hair and side locks sit on a
   copy of themselves offset by about 1.5 units in `dusk-2`. Keep it subtle: thicker or brighter
   reads as an outline.
@@ -111,9 +130,11 @@ and thanks screens (`variant="thanks"` adds four sparkles, one of them neon cyan
 - **Reduced motion** (`usePrefersReducedMotion`, which follows the setting live): the animation
   never starts, the plane is drawn waiting in London, and there's no button. The static state
   is always the default render.
-- Paths keep clear of landmarks: the plane waits beside each one, never over it, and the route
-  may bend through an extra point (Ch1 swings out in front of the CN Tower) rather than cut
-  through a building.
+- **Flight paths are clean straight dashed legs**, one corner per place, with the plane turning
+  at each corner. To keep them off buildings, the whole path flies at one fixed altitude above
+  the tallest landmark (Ch1: z 13.5, high enough that even the front leg clears the CN Tower on
+  screen), with each corner straight above its island. It's drawn after everything else, then
+  the plane. Don't bend routes around buildings.
 
 ## Accessibility
 - The scene's `<svg>` has `role="img"` and a `<title>` (via `aria-labelledby` and `useId`) that

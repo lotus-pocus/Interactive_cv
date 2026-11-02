@@ -1,61 +1,55 @@
-import { dot, face, fill, isoPoint } from "./iso";
+import { fill, isoPoint } from "./iso";
 import IsoBox from "./IsoBox";
 import IsoScene from "./IsoScene";
 
-// Chapter 5: a small fruit tree on a meadow, with a folded map and a map pin
-// (a nod to Grown on Trees).
-// 8 shapes: floor, meadow, trunk, canopy, fruit, map, pin ring (neon), pin (neon).
+// Chapter 5: a small fruit tree on a meadow, with three tiny seedlings
+// sprouting beside it (a nod to the seeds in Grown on Trees).
+// 6 shapes: floor, meadow, trunk, canopy, fruit, seedlings.
 // Drawn back to front, so later shapes sit in front of earlier ones.
 
-const PIN = [13.2, 12];
-const MAP_PANELS = [
-  { x: 11, tone: "cream-1" },
-  { x: 12.5, tone: "sky-1" },
-  { x: 14, tone: "cream-2" },
-];
+const MEADOW_TOP = 0.6;
 const FRUIT = [
-  { tone: "pink", x: 6, y: 8, z: 4.5 },
-  { tone: "peach", x: 8, y: 8, z: 5.2 },
-  { tone: "pink", x: 9, y: 5.5, z: 4.2 },
+  { tone: "pink", x: 7, y: 10, z: 4.5 },
+  { tone: "peach", x: 9, y: 10, z: 5.2 },
+  { tone: "pink", x: 10, y: 6.5, z: 4.2 },
+];
+// Seedlings, listed back to front
+const SEEDLINGS = [
+  [11.6, 10.4],
+  [5, 11.4],
+  [10.3, 11.8],
 ];
 
-// A classic map pin, upright in screen space with its tip at the given point.
-function pinPath([px, py]) {
-  return `M${px},${py} L${px - 5.5},${py - 16} A7,7 0 1 1 ${px + 5.5},${py - 16} Z`;
+// A tiny sprout drawn flat at an iso point: a stem and two leaves.
+function Seedling({ at: [x, y] }) {
+  const [px, py] = isoPoint(x, y, MEADOW_TOP);
+  return (
+    <g>
+      <rect x={px - 0.6} y={py - 6} width={1.2} height={6} style={fill("leaf-3")} />
+      <ellipse cx={px - 2.8} cy={py - 6.2} rx={3} ry={1.5} transform={`rotate(-30 ${px - 2.8} ${py - 6.2})`} style={fill("leaf-2")} />
+      <ellipse cx={px + 2.8} cy={py - 7.2} rx={3} ry={1.5} transform={`rotate(30 ${px + 2.8} ${py - 7.2})`} style={fill("leaf-1")} />
+    </g>
+  );
 }
 
 export default function TreePin() {
-  const tip = isoPoint(PIN[0], PIN[1], 0.05);
-
   return (
-    <IsoScene title="A small green tree with pink and peach fruit on a sunny meadow, next to a folded map with a glowing map pin.">
-      {(glow) => (
+    <IsoScene title="A small green tree with pink and peach fruit on a sunny meadow, with three tiny seedlings sprouting beside it.">
+      {() => (
         <>
-          <IsoBox tone="lemon" x={2} y={2} w={10} d={8} h={0.6} />
+          <IsoBox tone="lemon" x={3} y={3} w={10} d={10} h={MEADOW_TOP} />
 
           {/* Tree: trunk, two-tier canopy and fruit */}
-          <IsoBox tone="wood" x={6.6} y={5.6} z={0.6} w={0.8} d={0.8} h={3} />
-          <IsoBox tone="leaf" x={5} y={4} z={3.2} w={4} d={4} h={2.8} />
-          <IsoBox tone="leaf" x={5.8} y={4.8} z={6} w={2.4} d={2.4} h={1.4} />
+          <IsoBox tone="wood" x={7.6} y={7.6} z={MEADOW_TOP} w={0.8} d={0.8} h={3} />
+          <IsoBox tone="leaf" x={6} y={6} z={3.2} w={4} d={4} h={2.8} />
+          <IsoBox tone="leaf" x={6.8} y={6.8} z={6} w={2.4} d={2.4} h={1.4} />
           {FRUIT.map(({ tone, x, y, z }) => (
             <IsoBox key={`${x},${y}`} tone={tone} x={x} y={y} z={z} w={0.45} d={0.45} h={0.45} />
           ))}
 
-          {/* Folded map lying on the ground */}
-          {MAP_PANELS.map(({ x, tone }) => (
-            <polygon
-              key={x}
-              points={face([x, 10.5, 0.02], [x + 1.5, 10.5, 0.02], [x + 1.5, 13.5, 0.02], [x, 13.5, 0.02])}
-              style={fill(tone)}
-            />
+          {SEEDLINGS.map((at) => (
+            <Seedling key={at.join()} at={at} />
           ))}
-
-          {/* Map pin with a glowing ring where it lands */}
-          <polygon points={dot(PIN[0], PIN[1], 0.05, 0.8)} style={fill("neon-cyan")} filter={glow} />
-          <g filter={glow}>
-            <path d={pinPath(tip)} style={fill("neon-pink")} />
-            <circle cx={tip[0]} cy={tip[1] - 20} r={2.6} style={fill("ink")} />
-          </g>
         </>
       )}
     </IsoScene>
