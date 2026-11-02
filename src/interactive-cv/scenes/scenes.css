@@ -4,6 +4,24 @@
   height: auto;
 }
 
+/* Pause/Play for scenes that move for more than 5 seconds (WCAG 2.2.2) */
+.icv .icv-scene-control {
+  display: flex;
+  justify-content: center;
+  margin: 0.75rem 0 0;
+}
+
+.icv .icv-scene-control .icv-button {
+  gap: 0.5rem;
+  min-width: 7rem;
+}
+
+/* The bust is a portrait, not a floor scene: keep it from filling the column */
+.icv .icv-scene--avatar {
+  max-width: 22rem;
+  margin-inline: auto;
+}
+
 /* Stacked above the card on mobile: keep the scene from pushing the story
    below the fold. The viewBox keeps it centred and in proportion. */
 @media (max-width: 51.99rem) {

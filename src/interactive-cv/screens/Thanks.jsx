@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useConfig } from "../config";
 import { chapters, thanks } from "../data/chapters";
 import ChapterLayout from "../components/ChapterLayout";
+import { Avatar } from "../scenes";
 
 // Optional finale. Not counted as a chapter.
 export default function Thanks() {
@@ -10,7 +11,7 @@ export default function Thanks() {
   const lastChapter = chapters[chapters.length - 1].number;
 
   return (
-    <ChapterLayout>
+    <ChapterLayout scene={<Avatar variant="thanks" />}>
       <h1 tabIndex={-1}>{thanks.title}</h1>
       <p>{thanks.lead}</p>
 

@@ -52,6 +52,22 @@
   --icv-ill-ground-1: #2c2640;
   --icv-ill-ground-2: #221d33;
   --icv-ill-ground-3: #181426;
+  /* Fresh pastel leaf green for trees and plants (mint is too blue for foliage) */
+  --icv-ill-leaf-1: #c8f0b4;
+  --icv-ill-leaf-2: #9edc86;
+  --icv-ill-leaf-3: #74c063;
+  /* Muted dusk for walls and large panels: reads on black without glaring */
+  --icv-ill-dusk-1: #5a4f7a;
+  --icv-ill-dusk-2: #463d63;
+  --icv-ill-dusk-3: #362f4e;
+  /* Avatar only: skin, hair (with a dusk rim light) and jacket */
+  --icv-ill-skin-1: #e2b48c;
+  --icv-ill-skin-2: #cf9a70;
+  --icv-ill-skin-3: #b07b55;
+  --icv-ill-hair: #141118;
+  --icv-ill-ink: #2a2129;
+  --icv-ill-jacket-1: #4a4058;
+  --icv-ill-jacket-2: #3a3247;
   /* Neon accents: at most two small touches per scene, with a glow */
   --icv-ill-neon-pink: #ff3d9a;
   --icv-ill-neon-cyan: #1fe0ff;

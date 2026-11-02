@@ -9,9 +9,18 @@ parchment card. Pastel objects on a deep indigo floor, with small glowing neon t
 ## Projection
 - **True isometric, 30°.** Use `iso(x, y, z)` from `scenes/iso.js` for every point. Never place
   points by eye. World x runs down-right, y runs down-left, z runs straight up.
-- 1 world unit = 10 SVG units. Keep scenes to roughly 20 × 14 units of floor so they share a scale.
-- Every scene sits on one **ground slab** (`ground` tone, 1 unit thick). It anchors the scene and
-  makes the chapters read as a set. On black, the slab is a deep indigo floor rather than a light tile.
+- 1 world unit = 10 SVG units.
+
+## The stage (shared by every chapter)
+- **Every scene is wrapped in `<IsoScene>`** (`scenes/IsoScene.jsx`). It draws the same
+  **square floor**, 16 × 16 units (`FLOOR`), at the same place in the same viewBox
+  (`-150 -90 300 270`). Its two visible edges are equal, and flicking between chapters doesn't jump.
+  Never draw your own floor or change the viewBox.
+- Draw everything within x, y 0–16 and below about z 10. Walls (Ch3) run along the floor's two back
+  edges, so a room sits on the same footprint.
+- `<IsoScene>` also provides the title (alt text) and the neon glow: its child is a function that
+  receives the glow filter, `{(glow) => …}`.
+- On black, the floor is a deep indigo slab rather than a light tile.
 - Structures need visible support: no floating roofs. Give awnings and canopies posts or a back
   wall (the stall has a lilac back wall standing on the counter).
 
@@ -19,11 +28,19 @@ parchment card. Pastel objects on a deep indigo floor, with small glowing neon t
 - **Flat fills, no outlines, no gradients, no strokes.** Edges come from the difference between
   face tones.
 - **One filter only: `<NeonGlow>`** (`scenes/NeonGlow.jsx`), applied to neon accents and nothing
-  else. Place it once per `<svg>` with a `useId()` id and use `filter="url(#id)"`.
-- **Max ~12 shapes per scene.** A shape is one object: a box, a post, an awning, a wall. The ground
-  slab and each neon accent count. A box is three polygons but counts as one shape. The market
-  stall uses 12.
-- Prefer boxes (`<IsoBox>`) and flat panels. Keep curves and round shapes rare.
+  else. `<IsoScene>` places it; apply the `glow` it passes you with `filter={glow}`.
+- **Max ~12 shapes per scene.** A shape is one object: a box, a post, an awning, a wall. The floor
+  and each neon accent count. A box is three polygons but counts as one shape. Agreed exception:
+  Chapter 2 (stall + boutique) uses 16; keep any scene over 12 uncluttered.
+- Prefer boxes (`<IsoBox>`), pyramids (`<IsoPyramid>`), striped awnings (`<StripedAwning>`) and
+  flat panels drawn with `face()`. Keep curves and round shapes rare (the map pin is the exception).
+- **Flat details on a face** (shop windows, posters, a screen, key rows) are polygons in that
+  face's plane, nudged 0.02 units out so they sit on top. Posters can tilt slightly, like a
+  pinned clipping, by skewing their height along the wall.
+- A neon light that is a small block uses `<IsoBox solid="neon-pink" filter=…>`, so all faces glow
+  one colour.
+- An object built from a few parts (a rail with two uprights, a desk with legs, a camera with a
+  lens) counts as one shape.
 - No text, numbers or logos inside a scene. All meaning is in the HTML card.
 
 ## Light
@@ -50,7 +67,9 @@ Tuned for the dark page. Tones are `-1` top / `-2` left / `-3` right.
 | `lilac` | #e9defc | #d2c0f5 | #b49be6 | Objects, walls |
 | `cream` | #f7ecd9 | #e8d8bf | #d4c0a2 | Light alternates (stripes, paper, signs). Warm, never pure white, which glares on black. |
 | `wood` | #f0dcc4 | #ddbf9c | #c29f78 | Counters, posts, furniture |
-| `ground` | #2c2640 | #221d33 | #181426 | The ground slab only. Deep indigo, so it reads as a floor without glaring. |
+| `leaf` | #c8f0b4 | #9edc86 | #74c063 | Trees and plants, everywhere. A fresh pastel green: `mint` is too blue for foliage. |
+| `ground` | #2c2640 | #221d33 | #181426 | The ground slab only. Deep indigo, so it reads as a floor without glaring. `ground-3` also works as a dark screen. |
+| `dusk` | #5a4f7a | #463d63 | #362f4e | Walls and other large panels, monitor bodies. Muted so big areas don't glare. |
 
 Mix 2–4 pastel hues per scene. Keep big pale areas (walls, awnings) to a third of the scene or
 less so the black page doesn't flare around them.
@@ -64,15 +83,47 @@ less so the black page doesn't flare around them.
 On the dark page the only accent colour safe for text is `--icv-accent-text` (#ff7ab8,
 8.5:1 on #050505, AA). The parchment card has its own ink tokens (see `ParchmentCard.css`).
 
+## Avatar
+`scenes/Avatar.jsx` is the one non-isometric illustration: a flat, front-facing bust for the intro
+and thanks screens (`variant="thanks"` adds four sparkles, one of them neon cyan).
+- Same rules otherwise: flat fills, no strokes, palette tokens only, at most two neon accents
+  (the cherry earring, plus a sparkle on the thanks version).
+- Curves are fine here. Glasses are drawn as filled rings (`fill-rule="evenodd"`), not strokes.
+- **Glasses are Lotus's own (Mills "Flo" in purple):** oversized rounded-square lenses, wider
+  than tall, with a straighter top than bottom (corner radius 4 top, 9 bottom). Thick `lilac-2`
+  frames with a `lilac-1` top edge for the light, a faint `lilac-1` tint in the lenses, a slim
+  bridge, and `lilac-3` temples running back to the ears. Never dark frames.
+- Avatar-only tokens: `skin-1/2/3` (#e2b48c, #cf9a70, #b07b55), `hair` (#141118), `ink` (#2a2129,
+  eyes and the map-pin hole), `jacket-1/2` (#4a4058, #3a3247).
+- **Rim light:** black hair would vanish on the black page, so the hair and side locks sit on a
+  copy of themselves offset by about 1.5 units in `dusk-2`. Keep it subtle: thicker or brighter
+  reads as an outline.
+- Capped at 22rem wide so the portrait doesn't fill the desktop column.
+
+## Motion
+- Scenes are static, except the Chapter 1 plane, which **loops** the dotted path
+  London → Borneo → Canada → London (9 seconds a loop) until paused.
+- Motion uses the browser's Web Animations API (`element.animate`) with keyframes computed from
+  `isoPoint()`, so the plane follows the iso path exactly. No animation library.
+- **Anything that moves for more than 5 seconds gets a Pause/Play button** under the scene
+  (WCAG 2.2.2): a real `<button>`, keyboard operable, with an `aria-label` that names the
+  action ("Pause the plane animation" / "Play the plane animation").
+- **Reduced motion** (`usePrefersReducedMotion`, which follows the setting live): the animation
+  never starts, the plane is drawn waiting in London, and there's no button. The static state
+  is always the default render.
+- Paths keep clear of landmarks: the plane waits beside each one, never over it, and the route
+  may bend through an extra point (Ch1 swings out in front of the CN Tower) rather than cut
+  through a building.
+
 ## Accessibility
 - The scene's `<svg>` has `role="img"` and a `<title>` (via `aria-labelledby` and `useId`) that
   describes what's drawn in one plain sentence. It doesn't repeat the chapter text.
-- Scenes are static. Any motion (e.g. the Chapter 1 plane) must be skippable and off under
-  `prefers-reduced-motion`.
 - On mobile the scene is capped at 15rem tall so the story stays near the top of the screen.
 
 ## Adding a scene
-1. Create `scenes/<Name>.jsx` following `MarketStall.jsx`, and list its shapes in a comment.
-2. Draw back to front: ground, then objects in order of increasing `x + y`, then the nearest objects last.
+1. Create `scenes/<Name>.jsx` wrapped in `<IsoScene title="…">`, following `PressOffice.jsx`,
+   and list its shapes in a comment.
+2. Draw back to front: objects in order of increasing `x + y`, nearest objects last (the floor
+   is already drawn).
 3. Register it in `scenes/index.js` under its chapter number.
 4. Check it at 1280, 390 and 320px.
