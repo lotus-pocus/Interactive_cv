@@ -60,15 +60,19 @@ const DESIGNS = {
   ],
 };
 
-export default function Flag({ design, x, y, base, height = 3 }) {
-  const top = base + height;
-  const z0 = top - H;
-  const x0 = x + POLE;
-  const onFlag = (points) => face(...points.map(([u, v]) => [x0 + u, y + POLE, z0 + v]));
+// `scale` shrinks the whole flag and pole with smaller islands.
+export default function Flag({ design, x, y, base, height = 3, scale = 1 }) {
+  const pole = POLE * scale;
+  const poleHeight = height * scale;
+  const top = base + poleHeight;
+  const z0 = top - H * scale;
+  const x0 = x + pole;
+  const onFlag = (points) =>
+    face(...points.map(([u, v]) => [x0 + u * scale, y + pole, z0 + v * scale]));
 
   return (
     <g>
-      <IsoBox tone="cream" x={x} y={y} z={base} w={POLE} d={POLE} h={height} />
+      <IsoBox tone="cream" x={x} y={y} z={base} w={pole} d={pole} h={poleHeight} />
       {DESIGNS[design].map(([tone, points], i) => (
         <polygon key={i} points={onFlag(points)} style={fill(tone)} />
       ))}

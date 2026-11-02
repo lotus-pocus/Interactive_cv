@@ -56,6 +56,10 @@
   --icv-ill-leaf-1: #c8f0b4;
   --icv-ill-leaf-2: #9edc86;
   --icv-ill-leaf-3: #74c063;
+  /* Near-black charcoal for dark objects on pale ones (the VR headset): -1 top, -2 front, -3 side */
+  --icv-ill-charcoal-1: #3b3746;
+  --icv-ill-charcoal-2: #26232f;
+  --icv-ill-charcoal-3: #1b1921;
   /* Flags only, softened towards the palette (whites use cream-1, light blues sky) */
   --icv-ill-flag-navy: #3e4f99;
   --icv-ill-flag-royal: #4b68c2;

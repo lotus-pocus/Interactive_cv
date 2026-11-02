@@ -36,9 +36,24 @@ parchment card. Pastel objects on a deep indigo floor, with small glowing neon t
 - Prefer boxes (`<IsoBox>`), pyramids (`<IsoPyramid>`), striped awnings (`<StripedAwning>`) and
   flat panels drawn with `face()`.
 - **Small rounded objects are drawn flat, front-on** (screen space) at an `isoPoint()`, not as iso
-  boxes: the plane, the Ch4 display head and visor, the Ch5 seedlings. Round shapes stay rare and
-  small. Clip details to a rounded shape with a `<clipPath>` (the head's straps) rather than
-  approximating curves with boxes.
+  boxes: the plane, the Ch5 seedlings, the Ch4 VR headset. Round shapes stay rare and small.
+- **The VR headset** (`scenes/VrGear.jsx`) is an original, front-on headset icon resting on a
+  lilac plinth. The **visor is the dominant shape**: wide, with rounded corners and a small
+  rounded **nose notch** in the middle of its bottom edge, so it reads as goggles that sit on a
+  face. A thin **headband arches** up and over from one side of the visor to the other. Two
+  short, thin **side tabs** barely stick out past the visor's sides. **Every part is
+  charcoal**, separated by a thin `charcoal-1` edge (each part is drawn as a lighter shape with
+  the part inset on top), and the visor has a lighter top edge. The only detail is a short
+  neon-pink slit at the top centre of the visor. No upright "antenna" strap and no dots: they
+  make it read as a face.
+- **An object resting on a surface** stays inside that surface's outline. The headset is scaled
+  from the plinth's size so its whole silhouette (side tabs and headband arch included) sits within the
+  diamond of the plinth's top face, with a clear margin all round. If it gets too small to read
+  at 320px, widen the plinth rather than letting the object spill over its edges.
+- **Dark objects on pale ones** use the `charcoal` tones (near-black, three tones), with lighter
+  charcoal edges to separate their parts.
+- Small islands keep their landmarks in proportion (Ch1 islands are 4.5 units; flags use
+  `scale={0.8}`), and place landmarks relative to their island so the island can move.
 - **Something that passes through a ring** (the CN Tower shaft through its pod) is drawn in parts:
   the part below, then the ring, then the part above, so the ring's top face doesn't hide it.
 - **Flat details on a face** (shop windows, posters, a screen, key rows) are polygons in that
@@ -77,6 +92,7 @@ Tuned for the dark page. Tones are `-1` top / `-2` left / `-3` right.
 | `leaf` | #c8f0b4 | #9edc86 | #74c063 | Trees and plants, everywhere. A fresh pastel green: `mint` is too blue for foliage. |
 | `ground` | #2c2640 | #221d33 | #181426 | The ground slab only. Deep indigo, so it reads as a floor without glaring. `ground-3` also works as a dark screen. |
 | `dusk` | #5a4f7a | #463d63 | #362f4e | Walls and other large panels, monitor bodies. Muted so big areas don't glare. |
+| `charcoal` | #3b3746 | #26232f | #1b1921 | Near-black objects that must contrast with a pale surface (the VR headset). Small areas only. `-1` doubles as the light edge between parts. |
 
 Mix 2–4 pastel hues per scene. Keep big pale areas (walls, awnings) to a third of the scene or
 less so the black page doesn't flare around them.
@@ -130,11 +146,16 @@ and thanks screens (`variant="thanks"` adds four sparkles, one of them neon cyan
 - **Reduced motion** (`usePrefersReducedMotion`, which follows the setting live): the animation
   never starts, the plane is drawn waiting in London, and there's no button. The static state
   is always the default render.
-- **Flight paths are clean straight dashed legs**, one corner per place, with the plane turning
-  at each corner. To keep them off buildings, the whole path flies at one fixed altitude above
-  the tallest landmark (Ch1: z 13.5, high enough that even the front leg clears the CN Tower on
-  screen), with each corner straight above its island. It's drawn after everything else, then
-  the plane. Don't bend routes around buildings.
+- **Paths run across the island tops, under the landmarks.** A route is straight dashed legs
+  from the base of one landmark to the base of the next (Ch1: London's tallest block → Borneo
+  tree → CN Tower), lying at island-top height (z 0.62). Between islands it crosses open floor
+  at that same height. Draw order: island slabs, then the route, then the landmarks, so each
+  landmark stands in front of its end of the route and nothing looks as if it runs underneath
+  a building. Don't raise routes into the air or bend them around buildings.
+- The plane flies just above the route (Ch1: 0.5 above it, at 0.7 scale) and is drawn last.
+  It lands just in front of each landmark's base, 1.6 units towards the middle of the
+  triangle, never on top of it, waits there, then turns and flies on. Under reduced motion it
+  waits at London. Keep flags and other landmarks away from those landing spots.
 
 ## Accessibility
 - The scene's `<svg>` has `role="img"` and a `<title>` (via `aria-labelledby` and `useId`) that
