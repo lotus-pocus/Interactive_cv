@@ -1,0 +1,17 @@
+# Test hosting only. The final home is the portfolio on Vercel.
+# Vite build (matches the portfolio).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback so /interactive-cv/3 and /cv load on refresh or deep link
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Keep the test site out of search results
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
